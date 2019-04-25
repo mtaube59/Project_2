@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS testing_bd;
+CREATE DATABASE testing_bd;
+
