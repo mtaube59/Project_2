@@ -23,3 +23,15 @@ body {
 .card {
   opacity: .9;
 }
+#hurricane {
+  width: 100px;
+  height: 100px;
+}
+
+#top5 {
+  height: 425px;
+  opacity: .9;
+}
+#overflow {
+  overflow-y: auto;
+}
