@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 py-2">
       <h1>Name to be determined</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-3" id="form">
-      <form>
+      <form >
         <div class="form-row">
           <div class="form-group col-md-12">
             <label for="country">Country</label>
@@ -15,16 +15,16 @@
 
         </div>
         <div class="form-group col-md-12">
-          <label for="disastertype">Disaster Type</label>
-          <select id="disastertype" class="form-control">
+          <label for="disasterType">Disaster Type</label>
+          <select id="disasterType" class="form-control">
             <option selected>Choose...</option>
             <option>Earthquake</option>
             <option>Tornado</option>
           </select>
         </div>
         <div class="form-group col-md-12">
-          <label for="startingyear">Starting Year</label>
-          <select id="startingyear" class="form-control">
+          <label for="startingYear">Starting Year</label>
+          <select id="startingYear" class="form-control">
             <option selected>Choose...</option>
             <option>1950</option>
             <option>1951</option>
@@ -35,11 +35,11 @@
           </select>
         </div>
         <div class="form-group col">
-          <label for="lastyear"> Ending Year</label>
-          <input type="text" class="form-control" id="lastyear" placeholder="2019">
+          <label for="endingYear"> Ending Year</label>
+          <input type="text" class="form-control" id="endingYear" placeholder="2019">
         </div>
 
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button id="search-disaster" type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
     <div class="col-md-9">
@@ -59,16 +59,7 @@
   <br>
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          Top 5 Results
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
+      {{> top5Results }}    <!-- display top 5 results.  later can use this area to display something else if we want -->
     </div>
   </div>
 </div>
