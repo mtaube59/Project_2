@@ -35,3 +35,15 @@ body {
 #overflow {
   overflow-y: auto;
 }
+#overflow2 {
+  overflow-y: auto;
+}
+#overflow3 {
+  overflow-y: auto;
+}
+#topresults {
+  height: 415px;
+}
+#moreinfo {
+  height: 425px;
+}
