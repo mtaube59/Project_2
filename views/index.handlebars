@@ -1,78 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 py-2">
       <h1>Name to be determined</h1>
     </div>
   </div>
   <div class="row">
     <div class="col-md-3" id="form">
-      <form>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="country">Country</label>
-            <input type="name" class="form-control" id="country" placeholder="Country">
-          </div>
-
-        </div>
-        <div class="form-group col-md-12">
-          <label for="disastertype">Disaster Type</label>
-          <select id="disastertype" class="form-control">
-            <option selected>Choose...</option>
-            <option>Earthquake</option>
-            <option>Tornado</option>
-          </select>
-        </div>
-        <div class="form-group col-md-12">
-          <label for="startingyear">Starting Year</label>
-          <select id="startingyear" class="form-control">
-            <option selected>Choose...</option>
-            <option>1950</option>
-            <option>1951</option>
-            <option>1952</option>
-            <option>1953</option>
-            <option>1954</option>
-            <option>1955</option>
-          </select>
-        </div>
-        <div class="form-group col">
-          <label for="lastyear"> Ending Year</label>
-          <input type="text" class="form-control" id="lastyear" placeholder="2019">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
+      {{> searchForm}}
     </div>
     <div class="col-md-9">
-      <div class="card">
-        <div class="card-header">
-          Search Results
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
+      {{> displayArea }}
     </div>
   </div>
 
   <br>
   <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          Top 5 Results
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
+      {{> top5Results }}    <!-- display top 5 results.  later can use this area to display something else if we want -->
     </div>
   </div>
 </div>
-
 
 </div>
 
