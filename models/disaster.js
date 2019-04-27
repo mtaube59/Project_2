@@ -9,22 +9,12 @@
  */
 module.exports = function(sequelize, DataTypes) {
   const Disaster = sequelize.define("Disaster", {
-    country: DataTypes.STRING,
-    type: DataTypes.STRING,
     date: DataTypes.DATE,
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len:[1]
-      }
-    },
-    description: DataTypes.STRING
-    // links: DataTypes.ARRAY({      // not sure about this....
-    //   title: DataTypes.STRING,
-    //   url: DataTypes.STRING,
-    //   // logo: ????
-    // })
+    type: DataTypes.STRING,
+    country: DataTypes.STRING,
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING
   });
   
   return Disaster;

@@ -32,7 +32,7 @@ body {
   height: 425px;
   opacity: .9;
 }
-#overflow {
+#event-list {
   overflow-y: auto;
 }
 #overflow2 {
