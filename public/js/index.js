@@ -1,5 +1,4 @@
 // The API object contains methods for each kind of request we'll make
-var db = require("../models");
 
 var $submitSearch = $("#search-disaster");
 
@@ -27,6 +26,7 @@ var API = {
 // and display the new data.
 var handleSearchSubmit = function(event) {
   event.preventDefault();
+  console.log("YAAAAAAAAAAAA__________________");
   let country = $("#country").val().trim();
   let type = $("#disasterType").val().trim();
     // yearStart: $("#startingYear").val().trim(),
@@ -41,6 +41,9 @@ var handleSearchSubmit = function(event) {
     searchedEvent['type'] = type;
   }
 
+
+  console.log(searchedEvent);
+  console.log("===============================");
  
   var search = JSON.stringify(searchedEvent);
 
