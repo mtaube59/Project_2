@@ -4,7 +4,7 @@ var db = require("../models");
 // (clicking on an item in the results list sends the page to the /more/:id route
 // which gets the description data for that particular record)
 var currentResults = [];
-var searchResults = [];
+// var searchResults = [];
 
 module.exports = function(app) {
   // Load index page
@@ -25,10 +25,10 @@ module.exports = function(app) {
 
   app.get("/search", function(req, res) {
     db.Disaster.findAll({
-      where: searchResults
+      where: currentResults
     }).then(function(events) {
       // Render main page, passing the Events objects through 'events'
-      searchResults = events;
+      currentResults = events;
       res.render("index", {
         events: events
       });
@@ -58,7 +58,7 @@ module.exports = function(app) {
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {
-      searchResults = dbSearches;
+      currentResults = dbSearches;
       // console.log(dbSearches);
       console.log('done');
       console.log(currentResults);
@@ -67,7 +67,7 @@ module.exports = function(app) {
 
       // res.json(dbSearches);
       res.render("index", {
-        events: searchResults,
+        events: currentResults,
         description: ""        
       });
     });
