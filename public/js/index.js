@@ -26,7 +26,6 @@ var API = {
 // and display the new data.
 var handleSearchSubmit = function (event) {
   event.preventDefault();
-  console.log("YAAAAAAAAAAAA__________________");
   let country = $("#country").val().trim();
   let type = $("#disasterType").val().trim();
   // let yearStart = $("#startingYear").val().trim();
@@ -49,15 +48,23 @@ var handleSearchSubmit = function (event) {
   //   searchedEvent['yearEnd'] = convertedDate2;
   // }
 
-  console.log(searchedEvent);
-  console.log("===============================");
-
+  console.log('in handleSubmit');
   var search = JSON.stringify(searchedEvent);
 
-  // clearSearchForm();
+  // Send the POST request to add search data to searchedevents table.
+  $.ajax("/api/searchedevents", {
+    type: "POST",
+    data: searchedEvent
+  }).then(
+    function(data) {
+      console.log('back from /api/searchedevents');
+      // console.log(data);
+      // console.log(search);
 
-  // go to route: /api/disasters/:querystring 
-  location.href = `/disasters/${search}`;
+      // // go to route: /api/disasters/:querystring 
+      // location.href = `/disasters/${search}`;
+    }
+  );
 
 };
 

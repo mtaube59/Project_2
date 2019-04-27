@@ -4,12 +4,13 @@
   </div>
   <ul  id="event-list" class="list-group list-group-flush">
     {{#each events}}
+    <a href="/more/{{this.id}}">
       <li 
         class="list-group-item"
-        onclick="handleEventClick(this)"
         data-id="{{this.id}}">
-        <a href="/more/{{this.id}}">{{this.dataValues.title}}</a>
+        {{this.dataValues.title}}
       </li>
+      </a>
     {{/each}}
   </ul>
 </div>
