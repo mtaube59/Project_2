@@ -40,18 +40,13 @@ var handleSearchSubmit = function(event) {
     // yearEnd: $("#endingYear").val().trim()
   };
   
-  var hardcodesearch = JSON.stringify(searchedEvent);
+  var search = JSON.stringify(searchedEvent);
+  console.log('in handlesearchsubmit ..............');
+  console.log(search);
+  // clearSearchForm();
 
-  // API.saveSearchedEvent(`/api/searchedevents/${hardcodesearch}`)
-  // .then(function() {
-  //   clearSearchForm();
-  //   currentSearch = {
-  //     country: "Mexico"
-  //   };
-  console.log(hardcodesearch);
   // got to route: /api/disasters/:querystring 
-    location.href=`/api/disasters/${hardcodesearch}`;
-    console.log("hello there");
+    location.href=`/disasters/${search}`;
     // refreshSearchedEvents();
   // });
   
