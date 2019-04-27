@@ -32,15 +32,15 @@ var API = {
 // and display the new data.
 var handleSearchSubmit = function(event) {
   event.preventDefault();
-  
+
   var searchedEvent = {
     country: $("#country").val().trim(),
-    type: $("#disasterType").val().trim(),
-    yearStart: $("#startingYear").val().trim(),
-    yearEnd: $("#endingYear").val().trim()
+    type: $("#disasterType").val().trim()
+    // yearStart: $("#startingYear").val().trim(),
+    // yearEnd: $("#endingYear").val().trim()
   };
   
-  var hardcodesearch = JSON.stringify({country: "Mexico"});
+  var hardcodesearch = JSON.stringify(searchedEvent);
 
   // API.saveSearchedEvent(`/api/searchedevents/${hardcodesearch}`)
   // .then(function() {
@@ -49,6 +49,7 @@ var handleSearchSubmit = function(event) {
   //     country: "Mexico"
   //   };
   console.log(hardcodesearch);
+  // got to route: /api/disasters/:querystring 
     location.href=`/api/disasters/${hardcodesearch}`;
     console.log("hello there");
     // refreshSearchedEvents();
