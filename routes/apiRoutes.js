@@ -33,6 +33,7 @@ module.exports = function(app) {
   app.get("/api/disasters/:querystring", function(req, res) {
     console.log('inside get filtered disasters');
     let searchFilter = JSON.parse(req.params.querystring);
+    console.log(searchFilter);
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {

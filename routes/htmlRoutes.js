@@ -43,7 +43,7 @@ module.exports = function(app) {
         }
       }).then(function(data) {
         res.render("index", {
-          events: currentResults,
+          events: currentResults.filter(result => result.dataValues.title),
           description: data.description
         });
       });
@@ -67,7 +67,7 @@ module.exports = function(app) {
 
       // res.json(dbSearches);
       res.render("index", {
-        events: currentResults,
+        events: currentResults.filter(result => result.dataValues.title),
         description: ""        
       });
     });

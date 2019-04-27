@@ -3,7 +3,7 @@
 var $submitSearch = $("#search-disaster");
 
 var API = {
-  saveSearchedEvent: function(url, search) {
+  saveSearchedEvent: function (url, search) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -13,7 +13,7 @@ var API = {
       data: JSON.stringify(search)
     });
   },
-  getSearchedEvents: function(queryURL) {
+  getSearchedEvents: function (queryURL) {
     return $.ajax({
       url: queryURL,
       type: "GET"
@@ -24,13 +24,13 @@ var API = {
 // handleSearchSubmit is called whenever we submit a new set
 // of search criteria. Save the search data to our database
 // and display the new data.
-var handleSearchSubmit = function(event) {
+var handleSearchSubmit = function (event) {
   event.preventDefault();
   console.log("YAAAAAAAAAAAA__________________");
   let country = $("#country").val().trim();
   let type = $("#disasterType").val().trim();
-    // yearStart: $("#startingYear").val().trim(),
-    // yearEnd: $("#endingYear").val().trim()
+  // let yearStart = $("#startingYear").val().trim();
+  // let yearEnd = $("#endingYear").val().trim()
 
   // build searchEvent criteria object
   let searchedEvent = {}
@@ -40,25 +40,32 @@ var handleSearchSubmit = function(event) {
   if (type != 'Choose...') {
     searchedEvent['type'] = type;
   }
-
+  // if (yearStart != 'Choose...'){
+  //   var convertedDate = moment(yearStart).format();
+  //   searchedEvent['yearStart'] = convertedDate;
+  // }
+  // if (yearEnd != 'Choose...'){
+  //   var convertedDate2 = moment(yearEnd).format();
+  //   searchedEvent['yearEnd'] = convertedDate2;
+  // }
 
   console.log(searchedEvent);
   console.log("===============================");
- 
+
   var search = JSON.stringify(searchedEvent);
 
   // clearSearchForm();
 
   // go to route: /api/disasters/:querystring 
-    location.href=`/disasters/${search}`;
+  location.href = `/disasters/${search}`;
 
 };
 
 function clearSearchForm() {
   $("#country").val('');
-  $("#disasterType").prop('selectedIndex',0);
-  $("#startingYear").prop('selectedIndex',0);
-  $("#endingYear").prop('selectedIndex',0);
+  $("#disasterType").prop('selectedIndex', 0);
+  $("#startingYear").prop('selectedIndex', 0);
+  $("#endingYear").prop('selectedIndex', 0);
 }
 
 // This is called whenever a link in the Results list is clicked
@@ -73,9 +80,8 @@ function handleEventClick(event) {
   //     console.log('refreshed page');
   //   }
   //   )
-  };
-  
-  
-  // Add event listeners to the submit and delete buttons
-  $submitSearch.on("click", handleSearchSubmit);
-  
+};
+
+
+// Add event listeners to the submit and delete buttons
+$submitSearch.on("click", handleSearchSubmit);
