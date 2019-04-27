@@ -1,0 +1,18 @@
+<div id="top5" class="card">
+  <div class="card-header">
+    Results
+  </div>
+  <ul  id="event-list" class="list-group list-group-flush">
+    {{#each events}}
+      <li 
+        class="list-group-item"
+        onclick="handleEventClick(this)"
+        data-id="{{this.id}}">
+        <a href="/more/{{this.id}}">{{this.dataValues.title}}</a>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+<!-- this script is needed in order to have access to the events data -->
+<script src="/js/index.js"></script>

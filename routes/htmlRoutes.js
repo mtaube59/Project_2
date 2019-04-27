@@ -1,22 +1,41 @@
 var db = require("../models");
+// Store current set of search results in the currentResults array so it can be
+// accessed when the page is re-rendered in when one of the results is clicked
+// (clicking on an item in the results list sends the page to the /more/:id route
+// which gets the description data for that particular record)
+var currentResults = [];
 
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    // TODO...
-    // Make API call for new data (or maybe we just do this one time to get the data in the database)
-
-    // TODO...
-    // After data is IN the database, we want to do a query to get the top 5 disasters from the database
-    // and display it.  
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Disaster.findAll({
+      limit: 5,
+      where: {
+        status: 'current'
+      }
+    }).then(function(events) {
+      // Render main page, passing the Events objects through 'events'
+      currentResults = events;
       res.render("index", {
-        msg: "Welcome!",
-        examples: dbExamples
+        events: events
       });
     });
   });
 
+    // Route that displays the description of the data for the clicked event
+    app.get("/more/:id", function(req, res) {
+      db.Disaster.findOne({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(data) {
+        console.log(data.description);
+        res.render("index", {
+          events: currentResults,
+          description: data.description
+        });
+      });
+    });
 
   // TODO 
   // set up a GET for when the user has entered a search criteria. We will need to do a 
@@ -26,17 +45,6 @@ module.exports = function(app) {
       let fullpath = req;
       console.log(fullpath); 
     })
-
-
-  // Not sure we need this...
-  // Load example page and pass in an example by id
-  // app.get("/example/:id", function(req, res) {
-  //   db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-  //     res.render("example", {
-  //       example: dbExample
-  //     });
-  //   });
-  // });
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {

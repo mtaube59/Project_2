@@ -1,34 +1,5 @@
-// Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
-
 // The API object contains methods for each kind of request we'll make
 var API = {
-  // saveExample: function(example) {
-  //   return $.ajax({
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     type: "POST",
-  //     url: "api/examples",
-  //     data: JSON.stringify(example)
-  //   });
-  // },
-  // getExamples: function() {
-  //   return $.ajax({
-  //     url: "api/examples",
-  //     type: "GET"
-  //   });
-  // },
-  // deleteExample: function(id) {
-  //   return $.ajax({
-  //     url: "api/examples/" + id,
-  //     type: "DELETE"
-  //   });
-  // },
-
   saveSearchedEvent: function(search) {
     return $.ajax({
       headers: {
@@ -45,7 +16,6 @@ var API = {
       type: "GET"
     });
   }
-
 };
 
 // TO BE DONE LATER
@@ -79,9 +49,29 @@ var handleSearchSubmit = function(event) {
     refreshSearchedEvents();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  // $exampleText.val("");
+  // $exampleDescription.val("");
 };
+
+function handleEventClick(event) {
+  console.log(event);
+  var id = event.getAttribute("data-id");
+  console.log('88888888888888888888888888');
+  console.log(id);
+  console.log('88888888888888888888888888');
+  $.ajax({
+    url: `/more/${id}`,
+    type: "GET",
+  })
+  .then(
+    function(){
+      console.log('refreshed page');
+    }
+  )
+
+};
+
 
 // Add event listeners to the submit and delete buttons
 $("#search-disaster").on("click", handleSearchSubmit);
+// $(".event-list").on("click", handleEventClick)
