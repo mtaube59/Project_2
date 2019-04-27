@@ -6,13 +6,13 @@ var API = {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/searchedevents",
+      url: "/api/searchedevents",
       data: JSON.stringify(search)
     });
   },
   getSearchedEvents: function() {
     return $.ajax({
-      url: "api/searchedevents",
+      url: "/api/searchedevents",
       type: "GET"
     });
   }
@@ -46,6 +46,10 @@ var handleSearchSubmit = function(event) {
   };
 
   API.saveSearchedEvent(searchedEvent).then(function() {
+    $("#country").val('');
+    $("#disasterType").prop('selectedIndex',0);
+    $("#startingYear").prop('selectedIndex',0);
+    $("#endingYear").prop('selectedIndex',0);
     refreshSearchedEvents();
   });
 
@@ -54,11 +58,7 @@ var handleSearchSubmit = function(event) {
 };
 
 function handleEventClick(event) {
-  console.log(event);
   var id = event.getAttribute("data-id");
-  console.log('88888888888888888888888888');
-  console.log(id);
-  console.log('88888888888888888888888888');
   $.ajax({
     url: `/more/${id}`,
     type: "GET",
