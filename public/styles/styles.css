@@ -14,7 +14,7 @@ body {
   background-image: url(../img/map2.jpg);
   opacity: 1.5;
 }
-#form {
+#generic-card {
   background-color: whitesmoke;
   opacity: .9;
   padding: 5px;

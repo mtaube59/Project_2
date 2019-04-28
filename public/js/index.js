@@ -1,30 +1,11 @@
-// The API object contains methods for each kind of request we'll make
-
-var $submitSearch = $("#search-disaster");
-
-var API = {
-  saveSearchedEvent: function (url, search) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: url,
-      data: JSON.stringify(search)
-    });
-  },
-  getSearchedEvents: function (queryURL) {
-    return $.ajax({
-      url: queryURL,
-      type: "GET"
-    });
-  }
-};
-
 // handleSearchSubmit is called whenever we submit a new set
 // of search criteria. Save the search data to our database
 // and display the new data.
-var handleSearchSubmit = function (event) {
+
+// FOR SOME REASON, THIS IS CALLED 4 TIMES WHENEVER THE
+// SEARCH-DISASTER BUTTON IS CLICKED  --- WHYYY????
+$("#search-disaster").click(function (event) {
+  // $("#search-disaster").on("click", function (event) {
   event.preventDefault();
   let country = $("#country").val().trim();
   let type = $("#disasterType").val().trim();
@@ -49,24 +30,31 @@ var handleSearchSubmit = function (event) {
   // }
 
   console.log('in handleSubmit');
+  console.log(searchedEvent);
   var search = JSON.stringify(searchedEvent);
 
   // Send the POST request to add search data to searchedevents table.
-  $.ajax("/api/searchedevents", {
+  $.ajax({
+    headers: {
+      "Content-Type": "application/json"
+    },
     type: "POST",
-    data: searchedEvent
-  }).then(
-    function(data) {
+    url: "/api/searchedevents",
+    data: search
+  })
+  .then(
+    function() {
       console.log('back from /api/searchedevents');
-      // console.log(data);
-      // console.log(search);
 
-      // // go to route: /api/disasters/:querystring 
-      // location.href = `/disasters/${search}`;
+      // go to route: /api/disasters/:querystring 
+      location.href = `/disasters/${search}`;
     }
   );
 
-};
+  // location.href = `/disasters/${search}`;
+
+
+});
 
 function clearSearchForm() {
   $("#country").val('');
@@ -76,19 +64,10 @@ function clearSearchForm() {
 }
 
 // This is called whenever a link in the Results list is clicked
-function handleEventClick(event) {
-  var id = event.getAttribute("data-id");
-  $.ajax({
-    url: `/more/${id}`,
-    type: "GET",
-  })
-  // .then(
-  //   function(){
-  //     console.log('refreshed page');
-  //   }
-  //   )
-};
-
-
-// Add event listeners to the submit and delete buttons
-$submitSearch.on("click", handleSearchSubmit);
+// function handleEventClick(event) {
+//   var id = event.getAttribute("data-id");
+//   $.ajax({
+//     url: `/more/${id}`,
+//     type: "GET",
+//   })
+// };
