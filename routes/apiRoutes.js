@@ -4,7 +4,6 @@ module.exports = function(app) {
   
   // Create a new searchedevent 
   app.post("/api/searchedevents", function(req, res) {
-    console.log('inside api searchedevents..........');
     db.SearchedEvent.create(req.body)
     .then(function(data) {
       res.json(data); 

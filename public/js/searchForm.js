@@ -2,8 +2,6 @@
 // of search criteria. Save the search data to our database
 // and display the new data.
 
-// FOR SOME REASON, THIS IS CALLED 4 TIMES WHENEVER THE
-// SEARCH-DISASTER BUTTON IS CLICKED  --- WHYYY????
 $("#search-disaster").click(function (event) {
   // $("#search-disaster").on("click", function (event) {
   event.preventDefault();
@@ -29,8 +27,6 @@ $("#search-disaster").click(function (event) {
   //   searchedEvent['yearEnd'] = convertedDate2;
   // }
 
-  console.log('in handleSubmit');
-  console.log(searchedEvent);
   var search = JSON.stringify(searchedEvent);
 
   // Send the POST request to add search data to searchedevents table.
@@ -44,30 +40,10 @@ $("#search-disaster").click(function (event) {
   })
   .then(
     function() {
-      console.log('back from /api/searchedevents');
-
       // go to route: /api/disasters/:querystring 
       location.href = `/disasters/${search}`;
     }
   );
 
-  // location.href = `/disasters/${search}`;
-
-
 });
 
-function clearSearchForm() {
-  $("#country").val('');
-  $("#disasterType").prop('selectedIndex', 0);
-  $("#startingYear").prop('selectedIndex', 0);
-  $("#endingYear").prop('selectedIndex', 0);
-}
-
-// This is called whenever a link in the Results list is clicked
-// function handleEventClick(event) {
-//   var id = event.getAttribute("data-id");
-//   $.ajax({
-//     url: `/more/${id}`,
-//     type: "GET",
-//   })
-// };

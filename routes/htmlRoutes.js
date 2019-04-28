@@ -52,13 +52,25 @@ module.exports = function(app) {
      // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
     let searchFilter = JSON.parse(req.params.querystring);
+    // build the titlebar string
+    let keys = Object.keys(searchFilter);
+    let titleStr = "";
+    if (keys.includes('country') &&  keys.includes('type')) {
+      titleStr = `${searchFilter['type']}s in ${searchFilter['country']}`
+    } else if (keys.includes('country')){
+      titleStr = searchFilter['country'];
+    } else {
+      titleStr = `${searchFilter['type']}s`
+    }
+
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {
       currentResults = dbSearches;
       res.render("index", {
         events: currentResults.filter(result => result.dataValues.title),
-        description: ""        
+        description: "",
+        titlebar: titleStr      
       });
     });
   });
