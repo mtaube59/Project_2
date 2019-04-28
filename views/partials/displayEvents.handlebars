@@ -1,18 +1,20 @@
 <div id="top5" class="card">
   <div class="card-header">
-    Results
+    {{#if titlebar}}
+      {{titlebar}}
+    {{else}}
+      Top 5 Current Results
+    {{/if}}
   </div>
   <ul  id="event-list" class="list-group list-group-flush">
     {{#each events}}
+    <a href="/more/{{this.id}}">
       <li 
         class="list-group-item"
-        onclick="handleEventClick(this)"
         data-id="{{this.id}}">
-        <a href="/more/{{this.id}}">{{this.dataValues.title}}</a>
+        {{this.dataValues.title}}
       </li>
+      </a>
     {{/each}}
   </ul>
 </div>
-
-<!-- this script is needed in order to have access to the events data -->
-<script src="/js/index.js"></script>

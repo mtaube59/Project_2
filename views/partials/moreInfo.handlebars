@@ -1,11 +1,12 @@
 <div id="moreinfo" class="card">
   <div class="card-header">
-    Additional Information
+    {{#if title }}
+      {{title}}
+    {{else}}
+      Additional Information
+    {{/if}}
   </div>
   <div id="overflow3">
       {{description}}
   </div>
 </div>
-
-<!-- this script is needed in order to have access to the events data -->
-<script src="/js/index.js"></script>

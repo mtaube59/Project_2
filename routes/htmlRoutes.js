@@ -4,7 +4,6 @@ var db = require("../models");
 // (clicking on an item in the results list sends the page to the /more/:id route
 // which gets the description data for that particular record)
 var currentResults = [];
-// var searchResults = [];
 
 module.exports = function(app) {
   // Load index page
@@ -44,44 +43,37 @@ module.exports = function(app) {
       }).then(function(data) {
         res.render("index", {
           events: currentResults.filter(result => result.dataValues.title),
-          description: data.description
+          description: data.description,
+          title: data.title
         });
       });
     });
 
      // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
-    console.log('inside get filtered disasters');
     let searchFilter = JSON.parse(req.params.querystring);
-    console.log("=================== search filter ================");
-    console.log(searchFilter);
+    // build the titlebar string
+    let keys = Object.keys(searchFilter);
+    let titleStr = "";
+    if (keys.includes('country') &&  keys.includes('type')) {
+      titleStr = `${searchFilter['type']}s in ${searchFilter['country']}`
+    } else if (keys.includes('country')){
+      titleStr = searchFilter['country'];
+    } else {
+      titleStr = `${searchFilter['type']}s`
+    }
+
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {
       currentResults = dbSearches;
-      // console.log(dbSearches);
-      console.log('done');
-      console.log(currentResults);
-      // console.log(currentResults);
-      // location.href="/search";
-
-      // res.json(dbSearches);
       res.render("index", {
         events: currentResults.filter(result => result.dataValues.title),
-        description: ""        
+        description: "",
+        titlebar: titleStr      
       });
     });
   });
-
-
-  // TODO 
-  // set up a GET for when the user has entered a search criteria. We will need to do a 
-  // GET with query string data.  (ie: /search/?country=peru&type=tornado)
-  // https://www.arungudelli.com/tutorial/javascript/get-query-string-parameter-values-from-url-using-javascript/
-    app.get("/search", function(req, res) {
-      let fullpath = req;
-      console.log(fullpath); 
-    })
 
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
