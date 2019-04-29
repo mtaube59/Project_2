@@ -51,6 +51,8 @@ module.exports = function(app) {
 
      // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
+    let qStr = req.params.querystring;
+    console.log(qStr);
     let searchFilter = JSON.parse(req.params.querystring);
     // build the titlebar string
     let keys = Object.keys(searchFilter);
@@ -60,8 +62,17 @@ module.exports = function(app) {
     } else if (keys.includes('country')){
       titleStr = searchFilter['country'];
     } else {
-      titleStr = `${searchFilter['type']}s`
+        titleStr = `${searchFilter['type']}s`
     }
+    // var dateIndex = qStr.indexOf("between");
+    // if (dateIndex > 0) {
+    //   let dateStr = qStr.splice(dateIndex + 9)
+    //   yearStart = dateStr.splice(0,4)
+    //   let indexDateEnd = dateStr.indexOf(', ');
+    //   yearEnd = dateStr.splice(indexDateEnd+2,4);
+    //   titleStr = `(${yearStart} - ${yearEnd}) ${titleStr} `;
+    // }
+
 
     db.Disaster.findAll({
       where: searchFilter

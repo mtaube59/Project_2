@@ -76,23 +76,28 @@ $("#search-disaster").click(function (event) {
   // must have a unique name ('year2013', 'year2014', etc) otherwise only the last year
   // in a range will be recorded.
   if (begin != 0 && end != 0) {
-    for (let i = begin; i <= end; i++) {
+      for (let i = begin; i <= end; i++) {
       searchCriteria[`year${i}`] = i;
     }
   }
   // ========================= end of searchCriteria object years section ==============
 
+  
 
-  // Send the POST request to add search data to searches table.
+        
+
+  // Send the GET request to get the search data to searches table.
   $.ajax({
     headers: {
       "Content-Type": "application/json"
     },
     type: "GET",
     url: "/api/searches"
-  }).then(function (dbSearches) {
-    let existsId = 0;
+  })
+  .then(function (dbSearches){
+    let existsId = null;
     for (var key in searchCriteria) {
+      console.log(key);
       let topic = key;
       // in order to be able to have multiple years in the object, the year keys are named
       //  'year2013', 'year2014', etc.  If the key has the word 'year' in it, then the topic
@@ -101,41 +106,45 @@ $("#search-disaster").click(function (event) {
 
       let name = searchCriteria[key].toString().trim();
       existsId = recordExistsId(name, dbSearches);  // if record exists, returns the id
-      if (existsId != 0) {   // if item exists, increment the counter for this item
-        $.ajax({
-          headers: {
-            "Content-Type": "application/json"
-          },
-          type: "POST",
-          url: `/api/searches/${existsId}`
-        })
-      } else {        // if item does not exist, insert record into table with counter = 1
-        let bodyObj = {
-          topic: topic,
-          name: name,
-          count: 1
-        };
-        $.ajax({
-          headers: {
-            "Content-Type": "application/json"
-          },
-          type: "POST",
-          url: "/api/searches",
-          data: JSON.stringify(bodyObj)
-        })
-
-      }
+      let urlStr = `/api/searches/${existsId}`;
+      let newSearchObj = {
+        topic: topic,
+        name: name,
+        count: 1
+      };
+    // This AJAX call will increment the counter if the record already exists (if it has an id)
+    // otherwise, a new record is added to the searches table
+      $.ajax({
+        headers: {
+          "Content-Type": "application/json"
+        },
+        type: "POST",
+        url: urlStr,
+        data: JSON.stringify(newSearchObj)
+      })
+      .then(function(data) {
+        console.log(data);
+// try putting plot stuff here ===========================
+  // GET the data from searches table an make a plot
+        // $.ajax({
+        //   headers: {
+        //     "Content-Type": "application/json"
+        //   },
+        //   type: "GET",
+        //   url: "/api/charts"
+        //   })
+        //   .then(function (chartdata) {
+        //     console.log('calling create chart');
+        //     createChart(chartdata.labels, chartdata.data);
+        //     console.log('after chart plotted');
+        //   })
+// ===================================
+      })    
     }
-
-    // $.ajax({
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   type: "POST",
-    //   url: "/api/searches",
-    //   data: search
-    // })
   })
+  // or maybe plot stuff goes here ================================
+
+  // ==============================================================
     .then(
       function () {
         // go to route: /api/disasters/:querystring 
@@ -153,13 +162,56 @@ $("#search-disaster").click(function (event) {
  * @param {*} data : array from searches table in database
  */
 function recordExistsId(name, data) {
-  let existId = 0;
+  let existId = null;
   for (let i = 0; i < data.length; i++) {
     if (data[i].name === name) {
       existId = data[i].id;
-      break;
+      return existId;
     }
   }
-  return existId;
+  return null;
 }
 
+
+function createChart(labels, data) {
+  console.log(data);
+  console.log(labels);
+  var ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Number of Things",
+        data: data,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+      }]
+    }
+  }
+});
+
+}

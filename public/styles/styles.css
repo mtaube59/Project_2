@@ -38,7 +38,8 @@ body {
 #overflow2 {
   overflow-y: auto;
 }
-#overflow3 {
+
+.overflow {
   overflow-y: auto;
 }
 #topresults {
