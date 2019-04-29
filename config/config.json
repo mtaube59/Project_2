@@ -1,15 +1,15 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
-    "database": "disaster_db",
+    "password": "iamsocool",
+    "database": "disasters_db",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "root",
-    "database": "testdb",
+    "password": "iamsocool",
+    "database": "disasters_db",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false
