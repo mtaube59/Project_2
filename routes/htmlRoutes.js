@@ -57,14 +57,18 @@ module.exports = function(app) {
     } else {
       titleStr = `${searchFilter['type']}s`
     }
+    // // ========================================================
+    // // this is an awful way of getting the year ranges to display in the titlebar
+    // // but it works
     // var dateIndex = qStr.indexOf("between");
     // if (dateIndex > 0) {
-    //   let dateStr = qStr.splice(dateIndex + 9)
-    //   yearStart = dateStr.splice(0,4)
+    //   let dateStr = qStr.slice(dateIndex + 11)
+    //   yearStart = dateStr.substring(0,4)
     //   let indexDateEnd = dateStr.indexOf(', ');
-    //   yearEnd = dateStr.splice(indexDateEnd+2,4);
+    //   yearEnd = dateStr.substring(indexDateEnd+1,4);
     //   titleStr = `(${yearStart} - ${yearEnd}) ${titleStr} `;
     // }
+    //=========================================================
 
     db.Disaster.findAll({
       where: searchFilter
