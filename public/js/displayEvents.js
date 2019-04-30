@@ -4,6 +4,7 @@ let $moreInfoDisplay;
 window.onload = function() {
   $moreInfoDisplay = $("#more-info-desc");
   $moreInfoTitle = $("#more-info-title");
+  // const $dispEventList = $("#disp-events-title");
 
   $.ajax({
     headers: {
@@ -41,7 +42,7 @@ window.onload = function() {
     })
 }
 
-const $dispEventList = $("#disp-events-title");
+
 
 $eventsDisplay.on("click", ".listed-event", function(event) {
   $moreInfoDisplay.html($(this).attr("data-desc"));

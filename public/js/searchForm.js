@@ -89,6 +89,10 @@ $("#more-info-desc").html("");
     }
   }
 
+  const $dispEventList = $("#disp-events-title");
+
+
+
   // Send the GET request to get the search data to searches table.
   $.ajax({
     headers: {
@@ -99,6 +103,7 @@ $("#more-info-desc").html("");
   })
     .then(function (dbSearches) {
       let existsId = null;
+
       for (var key in searchCriteria) {
         let topic = key;
         // in order to be able to have multiple years in the object, the year keys are named
@@ -136,6 +141,11 @@ $("#more-info-desc").html("");
         type: "GET",
         url: `/disasters/${search}`
       }).then(function (data) {
+        console.log(data);
+        if (data.titlebar === 'undefineds') {
+          data.titlebar = "Current Results";
+        }
+        $("#disp-events-title").html(data.titlebar)
         var events = data.events;
         var htmlstr = "";
         for (let i = 0; i < events.length; i++) {
