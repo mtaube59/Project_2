@@ -26,7 +26,7 @@ Technologies that were used in this app
 * Javascript
 * CSS
 * ChartJS
-* Sequel Pro
+* Sequelize
 * NodeJS
 * Bootstrap
 
