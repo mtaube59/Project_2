@@ -18,13 +18,23 @@ Identify and prioritize essential user stories (limit this to 3 or fewer)?
 * Easy to use online encylopedia about disasters
 * Great resource for anyone learning about geography.
 
+Technologies that were used in this app
+* Handlebars
+* Javascript
+* CSS
+* ChartJS
+* Sequel Pro
+
 API that was used in this app
 ReliefWeb
 
 Issues we came across
-Getting the graph to display was a challenge in and of itself.
-It was difficult getting the styling to display on the app without ruining the functionality.
+* Getting the graph to display was a challenge in and of itself.
+* It was difficult getting the styling to display on the app without ruining the functionality.
+* Creating a database was difficult and querying the database
+
 
 Future for this app
-We would like to expand the years that we can search within this app.
+* We would like to expand the years that we can search within this app.
+* We would like to add a donate feature that redirects the user to the organization providing relief for the disaster.
 
