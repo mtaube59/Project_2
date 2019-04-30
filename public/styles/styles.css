@@ -35,7 +35,7 @@ body {
 
 /* styling for text links in search results section */
 .listed-event {
-  background-color: rgba(253, 242, 234, 0.842);
+  background-color: rgba(217, 237, 255, 0.842);
   font-size: 1.4em;
 }
 
@@ -51,4 +51,8 @@ body {
 }
 #topresults {
   height: 415px;
+}
+#more-info-desc {
+text-align: left;
+margin: 15px;
 }
