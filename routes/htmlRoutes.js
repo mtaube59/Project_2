@@ -47,6 +47,7 @@ module.exports = function(app) {
   app.get("/disasters/:querystring", function(req, res) {
     let qStr = req.params.querystring;
     let searchFilter = JSON.parse(req.params.querystring);
+    
     // build the titlebar string
     let keys = Object.keys(searchFilter);
     let titleStr = "";
@@ -57,18 +58,6 @@ module.exports = function(app) {
     } else {
       titleStr = `${searchFilter['type']}s`
     }
-    // // ========================================================
-    // // this is an awful way of getting the year ranges to display in the titlebar
-    // // but it works
-    // var dateIndex = qStr.indexOf("between");
-    // if (dateIndex > 0) {
-    //   let dateStr = qStr.slice(dateIndex + 11)
-    //   yearStart = dateStr.substring(0,4)
-    //   let indexDateEnd = dateStr.indexOf(', ');
-    //   yearEnd = dateStr.substring(indexDateEnd+1,4);
-    //   titleStr = `(${yearStart} - ${yearEnd}) ${titleStr} `;
-    // }
-    //=========================================================
 
     db.Disaster.findAll({
       where: searchFilter
@@ -79,15 +68,6 @@ module.exports = function(app) {
         description: "",
         titlebar: titleStr 
       })
-
-
-
-      // res.render("index", {
-      //   // res.render("../views/partials/displayEvents", {
-      //     events: currentResults.filter(result => result.dataValues.title),
-      //   description: "",
-      //   titlebar: titleStr      
-      // });
     });
   });
 

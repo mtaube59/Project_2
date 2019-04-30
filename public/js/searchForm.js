@@ -89,10 +89,6 @@ $("#more-info-desc").html("");
     }
   }
 
-  const $dispEventList = $("#disp-events-title");
-
-
-
   // Send the GET request to get the search data to searches table.
   $.ajax({
     headers: {
@@ -131,11 +127,9 @@ $("#more-info-desc").html("");
         })
           .then(function (data) {
           })
-      }  // end of loop that puts data into searches table
+      } 
 
       var search = JSON.stringify(filterEvent);
-      // location.href = `/disasters/${search}`;
-
       // get the data from the disasters table
       $.ajax({
         type: "GET",
@@ -166,15 +160,15 @@ $("#more-info-desc").html("");
             url: "/api/charts"
           })
             .then(function (data) {
-              createChart(data.cLabels, data.cData, 'country-chart');
-              createChart(data.dLabels, data.dData, 'disaster-chart');
+              if (chart1) { chart1.destroy(); }
+              if (chart2) { chart2.destroy(); }
+              chart1 = createChart(data.cLabels, data.cData, 'country-chart');
+              chart2 = createChart(data.dLabels, data.dData, 'disaster-chart');
             })
         })
     })
-  // })
 });
 
-// Additional Functions
 
 /**
  * Returns the id of the record if it exists
