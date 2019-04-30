@@ -27,6 +27,18 @@ body {
   height: 425px;
   opacity: .9;
 }
+
+.lower-card {
+  height: 425px;
+  opacity: .9;
+}
+
+/* styling for text links in search results section */
+.listed-event {
+  background-color: rgba(253, 242, 234, 0.842);
+  font-size: 1.4em;
+}
+
 #event-list {
   overflow-y: auto;
 }
@@ -39,7 +51,4 @@ body {
 }
 #topresults {
   height: 415px;
-}
-#moreinfo {
-  height: 425px;
 }

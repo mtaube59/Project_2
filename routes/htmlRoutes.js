@@ -9,21 +9,6 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     res.render("index");
-    // db.Disaster.findAll({
-    //   limit: 5,
-    //   where: {
-    //     status: 'current'
-    //   }
-    // }).then(function(events) {
-    //   // Render main page, passing the Events objects through 'events'
-    //   currentResults = events;
-    //   console.log(events);
-    //   res.render("index", {
-    //   events: currentResults.filter(result => result.dataValues.title),
-    //   description: events.description,
-    //   title: events.title
-    // });
-    // });
   });
 
   app.get("/top5", function(req, res) {
@@ -35,7 +20,6 @@ module.exports = function(app) {
     }).then(function(events) {
       // Render main page, passing the Events objects through 'events'
       currentResults = events;
-      console.log(events);
       res.json({
       events: currentResults.filter(result => result.dataValues.title),
       description: events.description,
@@ -76,7 +60,6 @@ module.exports = function(app) {
   // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
     let qStr = req.params.querystring;
-    console.log(qStr);
     let searchFilter = JSON.parse(req.params.querystring);
     // build the titlebar string
     let keys = Object.keys(searchFilter);

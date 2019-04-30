@@ -1,13 +1,8 @@
 let $eventsDisplay = $("#event-list-links");
 let $moreInfoDisplay;
 
-console.log($eventsDisplay);
-
-
 window.onload = function() {
   $moreInfoDisplay = $("#more-info-desc");
-  console.log($moreInfoDisplay);
-  
   $.ajax({
     headers: {
       "Content-Type": "application/json"
@@ -17,16 +12,13 @@ window.onload = function() {
     })
     .then(function (data) {
       var events = data.events;
-      console.log('=====================');
 
-      console.log(events);
-      // $("#event-list-links").empty()
-      var htmlstr;
+      var htmlstr ="";
       for (let i = 0; i < events.length; i++)  {
-        htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
-        </h3>`
-        console.log(events[i].title);
+        htmlstr = htmlstr + `<p class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
+        </p>`
       } 
+
       $eventsDisplay.html(htmlstr);
     })
     .then(function () {
@@ -37,9 +29,9 @@ window.onload = function() {
         type: "GET",
         url: "/api/charts"
         })
-        .then(function (chartdata) {
-          // console.log(chartdata);
-          createChart(chartdata.labels, chartdata.data);
+        .then(function (data) {
+          createChart(data.cLabels, data.cData, 'country-chart');
+          createChart(data.dLabels, data.dData, 'disaster-chart');
         })
     })
 }
@@ -47,20 +39,15 @@ window.onload = function() {
 const $dispEventList = $("#disp-events-title");
 
 $eventsDisplay.on("click", ".listed-event", function(event) {
-  // var id = event.target.dataSet.id
   $moreInfoDisplay.html($(this).attr("data-desc"));
-  // console.log("you clicked " + $(this).attr("data-desc"));    // YAY - this prints the desciption to the screen!!!
 })
 
 
-function createChart(labels, data) {
+function createChart(labels, data, chartid) {
 
-  console.log(data);
-  console.log(labels);
-  var ctx = document.getElementById('country-chart').getContext('2d');
-  // var myChart = new Chart(ctx, {
+  var ctx = document.getElementById(chartid).getContext('2d');
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'polarArea',
     data: {
       labels: labels,
       datasets: [{
@@ -86,13 +73,13 @@ function createChart(labels, data) {
       }]
     },
     options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
+      // scales: {
+      //   yAxes: [{
+      //     ticks: {
+      //       beginAtZero: true
+      //     }
+      //   }]
+      // }
     }
   });
   

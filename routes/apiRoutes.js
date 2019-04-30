@@ -30,17 +30,27 @@ module.exports = function (app) {
   app.get("/api/charts", function (req, res) {
     db.Searches.findAll({})
     .then(function (dbSearches) {
-      var labels = [];
-      var data = [];
+      var countryLabels = [];
+      var countryData = [];
+      var disasterLabels = [];
+      var disasterData = [];
       for (var i = 0; i < dbSearches.length; i++) {
         if (dbSearches[i].topic === 'country') {
-          labels.push(dbSearches[i].name);
-          data.push(dbSearches[i].count);
+          countryLabels.push(dbSearches[i].name);
+          countryData.push(dbSearches[i].count);
+        }
+        if (dbSearches[i].topic === 'type') {
+          disasterLabels.push(dbSearches[i].name);
+          disasterData.push(dbSearches[i].count);
         }
       }
-      console.log(labels);
-      console.log(data);
-      res.json({labels: labels, data: data});
+
+      res.json({
+        cLabels: countryLabels,
+        cData: countryData,
+        dLabels: disasterLabels,
+        dData: disasterData
+      });
     });
   });
 

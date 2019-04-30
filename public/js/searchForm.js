@@ -80,23 +80,7 @@ $("#search-disaster").click(function (event) {
       searchCriteria[`year${i}`] = i;
     }
   }
-  // ========================= end of searchCriteria object years section ==============
-  // let displayChart;
-  // // GET the data from searches table an make a plot
-  // $.ajax({
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   },
-  //   type: "GET",
-  //   url: "/api/charts"
-  //   })
-  //   .then(function (chartdata) {
-  //     console.log('calling create chart');
-  //     displayChart = createChart(chartdata.labels, chartdata.data);
-  //     filterEvent['chart'] = displayChart;
-
-  //     console.log('after chart plotted');
-      
+     
       // Send the GET request to get the search data to searches table.
       $.ajax({
         headers: {
@@ -108,7 +92,6 @@ $("#search-disaster").click(function (event) {
       .then(function (dbSearches){
         let existsId = null;
         for (var key in searchCriteria) {
-          console.log(key);
           let topic = key;
           // in order to be able to have multiple years in the object, the year keys are named
           //  'year2013', 'year2014', etc.  If the key has the word 'year' in it, then the topic
@@ -134,7 +117,6 @@ $("#search-disaster").click(function (event) {
             data: JSON.stringify(newSearchObj)
           })
           .then(function(data) {
-            console.log(data);
           })    
         }  // end of loop that puts data into searches table
 
@@ -151,7 +133,6 @@ $("#search-disaster").click(function (event) {
           for (let i = 0; i < events.length; i++)  {
             htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
             </h3>`
-            console.log(events[i].title);
           } 
           $("#event-list-links").html(htmlstr);
         })
@@ -163,9 +144,9 @@ $("#search-disaster").click(function (event) {
             type: "GET",
             url: "/api/charts"
             })
-            .then(function (chartdata) {
-              // console.log(chartdata);
-              createChart(chartdata.labels, chartdata.data);
+            .then(function (data) {
+              createChart(data.cLabels, data.cData, 'country-chart');
+              createChart(data.dLabels, data.dData, 'disaster-chart');
             })
         })
       })
@@ -190,14 +171,12 @@ $("#search-disaster").click(function (event) {
     return null;
   }
  
-function createChart(labels, data) {
+function createChart(labels, data, chartid) {
 
-  console.log(data);
-  console.log(labels);
-  var ctx = document.getElementById('country-chart').getContext('2d');
+  var ctx = document.getElementById(chartid).getContext('2d');
   // var myChart = new Chart(ctx, {
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'polarArea',
     data: {
       labels: labels,
       datasets: [{
@@ -223,13 +202,13 @@ function createChart(labels, data) {
       }]
     },
     options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
+      // scales: {
+      //   yAxes: [{
+      //     ticks: {
+      //       beginAtZero: true
+      //     }
+      //   }]
+      // }
     }
   });
   
