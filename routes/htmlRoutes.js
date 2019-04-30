@@ -8,6 +8,10 @@ var currentResults = [];
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+    res.render("index");
+  });
+
+  app.get("/top5", function(req, res) {
     db.Disaster.findAll({
       limit: 5,
       where: {
@@ -16,11 +20,15 @@ module.exports = function(app) {
     }).then(function(events) {
       // Render main page, passing the Events objects through 'events'
       currentResults = events;
-      res.render("index", {
-        events: events
-      });
+      res.json({
+      events: currentResults.filter(result => result.dataValues.title),
+      description: events.description,
+      title: events.title
+    });
     });
   });
+
+
 
   app.get("/search", function(req, res) {
     db.Disaster.findAll({
@@ -49,8 +57,9 @@ module.exports = function(app) {
       });
     });
 
-     // get filtered disasters 
+  // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
+    let qStr = req.params.querystring;
     let searchFilter = JSON.parse(req.params.querystring);
     // build the titlebar string
     let keys = Object.keys(searchFilter);
@@ -62,16 +71,33 @@ module.exports = function(app) {
     } else {
       titleStr = `${searchFilter['type']}s`
     }
+    // var dateIndex = qStr.indexOf("between");
+    // if (dateIndex > 0) {
+    //   let dateStr = qStr.splice(dateIndex + 9)
+    //   yearStart = dateStr.splice(0,4)
+    //   let indexDateEnd = dateStr.indexOf(', ');
+    //   yearEnd = dateStr.splice(indexDateEnd+2,4);
+    //   titleStr = `(${yearStart} - ${yearEnd}) ${titleStr} `;
+    // }
 
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {
       currentResults = dbSearches;
-      res.render("index", {
+      res.json({
         events: currentResults.filter(result => result.dataValues.title),
         description: "",
-        titlebar: titleStr      
-      });
+        titlebar: titleStr 
+      })
+
+
+
+      // res.render("index", {
+      //   // res.render("../views/partials/displayEvents", {
+      //     events: currentResults.filter(result => result.dataValues.title),
+      //   description: "",
+      //   titlebar: titleStr      
+      // });
     });
   });
 

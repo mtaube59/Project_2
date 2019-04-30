@@ -14,12 +14,7 @@ body {
   background-image: url(../img/map2.jpg);
   opacity: 1.5;
 }
-#generic-card {
-  background-color: whitesmoke;
-  opacity: .9;
-  padding: 5px;
-  height: 425px;
-}
+
 .card {
   opacity: .9;
 }
@@ -28,22 +23,32 @@ body {
   height: 100px;
 }
 
-#top5 {
+.upper-card {
   height: 425px;
   opacity: .9;
 }
+
+.lower-card {
+  height: 425px;
+  opacity: .9;
+}
+
+/* styling for text links in search results section */
+.listed-event {
+  background-color: rgba(253, 242, 234, 0.842);
+  font-size: 1.4em;
+}
+
 #event-list {
   overflow-y: auto;
 }
 #overflow2 {
   overflow-y: auto;
 }
-#overflow3 {
+
+.overflow {
   overflow-y: auto;
 }
 #topresults {
   height: 415px;
-}
-#moreinfo {
-  height: 425px;
 }

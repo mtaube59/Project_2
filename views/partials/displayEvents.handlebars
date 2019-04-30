@@ -1,20 +1,8 @@
-<div id="top5" class="card">
-  <div class="card-header">
-    {{#if titlebar}}
-      {{titlebar}}
-    {{else}}
-      Top 5 Current Results
-    {{/if}}
+<div class="card upper-card">
+  <div id="disp-events-title" class="card-header">
+    Current Results
   </div>
-  <ul  id="event-list" class="list-group list-group-flush">
-    {{#each events}}
-    <a href="/more/{{this.id}}">
-      <li 
-        class="list-group-item"
-        data-id="{{this.id}}">
-        {{this.dataValues.title}}
-      </li>
-      </a>
-    {{/each}}
-  </ul>
+  <div id="event-list-links" class="list-group list-group-flush overflow"></div>
 </div>
+
+<script src="/js/displayEvents.js"></script>

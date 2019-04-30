@@ -1,62 +1,67 @@
+<div class="card upper-card">
+  <div id="disp-events-title" class="card-header">
+    Search
+  </div>
+  <form >
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="country">Country</label>
+        <input type="name" class="form-control" id="country" placeholder="Country">
+      </div>
 
-      <form >
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="country">Country</label>
-            <input type="name" class="form-control" id="country" placeholder="Country">
-          </div>
-
-        </div>
-        <div class="form-group col-md-12">
-          <label for="disasterType">Disaster Type</label>
-          <select id="disasterType" class="form-control">
-            <option selected>Choose...</option>
-            <option>Earthquake</option>
-            <option>Tropical Cyclone</option>
-            <option>Tornado</option>
-            <option>Flood</option>
-            <option>Wild Fire</option>
-            <option>Epidemic</option>
-            <option>Drought</option>
-            <option>Volcano</option>
-          </select>
-        </div>
-        <div class="form-group col-md-12">
-          <label for="startingYear">Starting Year</label>
-          <select id="startingYear" class="form-control">
-            <option selected>Choose...</option>
-            <option>2009</option>
-            <option>2010</option>
-            <option>2011</option>
-            <option>2012</option>
-            <option>2013</option>
-            <option>2014</option>
-            <option>2015</option>
-            <option>2016</option>
-            <option>2017</option>
-            <option>2018</option>
-            <option>2019</option>
-          </select>
-        </div>
-        <div class="form-group col-md-12">
-          <label for="endingYear">Ending Year</label>
-          <select id="endingYear" class="form-control">
-            <option selected>Choose...</option>
-            <option>2009</option>
-            <option>2010</option>
-            <option>2011</option>
-            <option>2012</option>
-            <option>2013</option>
-            <option>2014</option>
-            <option>2015</option>
-            <option>2016</option>
-            <option>2017</option>
-            <option>2018</option>
-            <option>2019</option>
-          </select>
-        </div>
-      </form>
-      <button id="search-disaster" >Search</button>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="disasterType">Disaster Type</label>
+      <select id="disasterType" class="form-control">
+        <option selected>Choose...</option>
+        <option>Earthquake</option>
+        <option>Tropical Cyclone</option>
+        <option>Tornado</option>
+        <option>Flood</option>
+        <option>Wild Fire</option>
+        <option>Epidemic</option>
+        <option>Drought</option>
+        <option>Volcano</option>
+      </select>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="startingYear">Starting Year</label>
+      <select id="startingYear" class="form-control">
+        <option selected>Choose...</option>
+        <option>2009</option>
+        <option>2010</option>
+        <option>2011</option>
+        <option>2012</option>
+        <option>2013</option>
+        <option>2014</option>
+        <option>2015</option>
+        <option>2016</option>
+        <option>2017</option>
+        <option>2018</option>
+        <option>2019</option>
+      </select>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="endingYear">Ending Year</label>
+      <select id="endingYear" class="form-control">
+        <option selected>Choose...</option>
+        <option>2009</option>
+        <option>2010</option>
+        <option>2011</option>
+        <option>2012</option>
+        <option>2013</option>
+        <option>2014</option>
+        <option>2015</option>
+        <option>2016</option>
+        <option>2017</option>
+        <option>2018</option>
+        <option>2019</option>
+      </select>
+    </div>
+  </form>
+  <button id="search-disaster" >Search</button>
+</div>  
 
 <!-- this script is needed in order to have access to the events data -->
+{{!-- <script src="/public/js/createChart.js"></script> --}}
 <script src="/js/searchForm.js"></script>
