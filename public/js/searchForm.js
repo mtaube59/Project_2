@@ -81,21 +81,21 @@ $("#search-disaster").click(function (event) {
     }
   }
   // ========================= end of searchCriteria object years section ==============
-  let displayChart;
-  // GET the data from searches table an make a plot
-  $.ajax({
-    headers: {
-      "Content-Type": "application/json"
-    },
-    type: "GET",
-    url: "/api/charts"
-    })
-    .then(function (chartdata) {
-      console.log('calling create chart');
-      displayChart = createChart(chartdata.labels, chartdata.data);
-      filterEvent['chart'] = displayChart;
+  // let displayChart;
+  // // GET the data from searches table an make a plot
+  // $.ajax({
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   type: "GET",
+  //   url: "/api/charts"
+  //   })
+  //   .then(function (chartdata) {
+  //     console.log('calling create chart');
+  //     displayChart = createChart(chartdata.labels, chartdata.data);
+  //     filterEvent['chart'] = displayChart;
 
-      console.log('after chart plotted');
+  //     console.log('after chart plotted');
       
       // Send the GET request to get the search data to searches table.
       $.ajax({
@@ -139,9 +139,20 @@ $("#search-disaster").click(function (event) {
         }  // end of loop that puts data into searches table
 
         var search = JSON.stringify(filterEvent);
-        location.href = `/disasters/${search}`;
+        // location.href = `/disasters/${search}`;
+
+        // get the data from the disasters table
+        $.ajax({
+          type: "GET",
+          url: `/disasters/${search}`
+        }).then(function (filtered) {
+          console.log(
+            'received filtered data'
+          );
+          // console.log(filtered);
+        })
       })
-    })
+    // })
   });
             
   // $("#event-list").click(function (event) {
@@ -170,47 +181,47 @@ $("#search-disaster").click(function (event) {
   }
   
   
-  function createChart(labels, data) {
-    console.log(data);
-    console.log(labels);
-    var ctx = document.getElementById('myChart').getContext('2d');
-    // var myChart = new Chart(ctx, {
-    var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: "Number of Things",
-          data: data,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+  // function createChart(labels, data) {
+  //   console.log(data);
+  //   console.log(labels);
+  //   var ctx = document.getElementById('myChart').getContext('2d');
+  //   // var myChart = new Chart(ctx, {
+  //   var myChart = new Chart(ctx, {
+  //     type: 'bar',
+  //     data: {
+  //       labels: labels,
+  //       datasets: [{
+  //         label: "Number of Things",
+  //         data: data,
+  //         backgroundColor: [
+  //           'rgba(255, 99, 132, 0.2)',
+  //           'rgba(54, 162, 235, 0.2)',
+  //           'rgba(255, 206, 86, 0.2)',
+  //           'rgba(75, 192, 192, 0.2)',
+  //           'rgba(153, 102, 255, 0.2)',
+  //           'rgba(255, 159, 64, 0.2)'
+  //         ],
+  //         borderColor: [
+  //           'rgba(255, 99, 132, 1)',
+  //           'rgba(54, 162, 235, 1)',
+  //           'rgba(255, 206, 86, 1)',
+  //           'rgba(75, 192, 192, 1)',
+  //           'rgba(153, 102, 255, 1)',
+  //           'rgba(255, 159, 64, 1)'
+  //         ],
+  //         borderWidth: 1
+  //       }]
+  //     },
+  //     options: {
+  //       scales: {
+  //         yAxes: [{
+  //           ticks: {
+  //             beginAtZero: true
+  //           }
+  //         }]
+  //       }
+  //     }
+  //   });
     
-    return myChart;
-  }
+  //   return myChart;
+  // }

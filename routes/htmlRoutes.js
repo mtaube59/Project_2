@@ -8,6 +8,25 @@ var currentResults = [];
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
+    res.render("index");
+    // db.Disaster.findAll({
+    //   limit: 5,
+    //   where: {
+    //     status: 'current'
+    //   }
+    // }).then(function(events) {
+    //   // Render main page, passing the Events objects through 'events'
+    //   currentResults = events;
+    //   console.log(events);
+    //   res.render("index", {
+    //   events: currentResults.filter(result => result.dataValues.title),
+    //   description: events.description,
+    //   title: events.title
+    // });
+    // });
+  });
+
+  app.get("/top5", function(req, res) {
     db.Disaster.findAll({
       limit: 5,
       where: {
@@ -16,11 +35,16 @@ module.exports = function(app) {
     }).then(function(events) {
       // Render main page, passing the Events objects through 'events'
       currentResults = events;
-      res.render("index", {
-        events: events
-      });
+      console.log(events);
+      res.json({
+      events: currentResults.filter(result => result.dataValues.title),
+      description: events.description,
+      title: events.title
+    });
     });
   });
+
+
 
   app.get("/search", function(req, res) {
     db.Disaster.findAll({
