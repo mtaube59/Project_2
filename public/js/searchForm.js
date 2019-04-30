@@ -1,6 +1,6 @@
 // handleSearchSubmit is called whenever we submit a new set
-// of search criteria. Save the search data to our database
-// and display the new data.
+// of search criteria. Save the search data to the searches
+// table in our database and then display the new data.
 
 $("#search-disaster").click(function (event) {
   // $("#search-disaster").on("click", function (event) {
@@ -145,23 +145,33 @@ $("#search-disaster").click(function (event) {
         $.ajax({
           type: "GET",
           url: `/disasters/${search}`
-        }).then(function (filtered) {
-          console.log(
-            'received filtered data'
-          );
-          // console.log(filtered);
+        }).then(function (data) {
+          var events = data.events;
+          var htmlstr;
+          for (let i = 0; i < events.length; i++)  {
+            htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
+            </h3>`
+            console.log(events[i].title);
+          } 
+          $("#event-list-links").html(htmlstr);
+        })
+        .then(function () {
+          $.ajax({
+            headers: {
+              "Content-Type": "application/json"
+            },
+            type: "GET",
+            url: "/api/charts"
+            })
+            .then(function (chartdata) {
+              // console.log(chartdata);
+              createChart(chartdata.labels, chartdata.data);
+            })
         })
       })
     // })
   });
             
-  // $("#event-list").click(function (event) {
-  //   // $("#search-disaster").on("click", function (event) {
-  //   event.preventDefault();
-  //   var idval = $(this).attr("data-id");
-  //   var desc = $(this).attr("data-description");
-  //   $("#details").html(desc);
-  // });
 // Additional Functions
 
   /**
@@ -179,49 +189,48 @@ $("#search-disaster").click(function (event) {
     }
     return null;
   }
+ 
+function createChart(labels, data) {
+
+  console.log(data);
+  console.log(labels);
+  var ctx = document.getElementById('country-chart').getContext('2d');
+  // var myChart = new Chart(ctx, {
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "# of Search Requests",
+        data: data,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
   
-  
-  // function createChart(labels, data) {
-  //   console.log(data);
-  //   console.log(labels);
-  //   var ctx = document.getElementById('myChart').getContext('2d');
-  //   // var myChart = new Chart(ctx, {
-  //   var myChart = new Chart(ctx, {
-  //     type: 'bar',
-  //     data: {
-  //       labels: labels,
-  //       datasets: [{
-  //         label: "Number of Things",
-  //         data: data,
-  //         backgroundColor: [
-  //           'rgba(255, 99, 132, 0.2)',
-  //           'rgba(54, 162, 235, 0.2)',
-  //           'rgba(255, 206, 86, 0.2)',
-  //           'rgba(75, 192, 192, 0.2)',
-  //           'rgba(153, 102, 255, 0.2)',
-  //           'rgba(255, 159, 64, 0.2)'
-  //         ],
-  //         borderColor: [
-  //           'rgba(255, 99, 132, 1)',
-  //           'rgba(54, 162, 235, 1)',
-  //           'rgba(255, 206, 86, 1)',
-  //           'rgba(75, 192, 192, 1)',
-  //           'rgba(153, 102, 255, 1)',
-  //           'rgba(255, 159, 64, 1)'
-  //         ],
-  //         borderWidth: 1
-  //       }]
-  //     },
-  //     options: {
-  //       scales: {
-  //         yAxes: [{
-  //           ticks: {
-  //             beginAtZero: true
-  //           }
-  //         }]
-  //       }
-  //     }
-  //   });
-    
-  //   return myChart;
-  // }
+}

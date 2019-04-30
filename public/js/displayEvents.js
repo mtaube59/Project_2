@@ -30,7 +30,6 @@ window.onload = function() {
       $eventsDisplay.html(htmlstr);
     })
     .then(function () {
-      console.log('window has loaded');
       $.ajax({
         headers: {
           "Content-Type": "application/json"
@@ -65,7 +64,7 @@ function createChart(labels, data) {
     data: {
       labels: labels,
       datasets: [{
-        label: "Number of Things",
+        label: "# of Search Requests",
         data: data,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',

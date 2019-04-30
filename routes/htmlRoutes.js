@@ -101,12 +101,20 @@ module.exports = function(app) {
       where: searchFilter
     }).then(function(dbSearches) {
       currentResults = dbSearches;
-      res.render("index", {
-        // res.render("../views/partials/displayEvents", {
-          events: currentResults.filter(result => result.dataValues.title),
+      res.json({
+        events: currentResults.filter(result => result.dataValues.title),
         description: "",
-        titlebar: titleStr      
-      });
+        titlebar: titleStr 
+      })
+
+
+
+      // res.render("index", {
+      //   // res.render("../views/partials/displayEvents", {
+      //     events: currentResults.filter(result => result.dataValues.title),
+      //   description: "",
+      //   titlebar: titleStr      
+      // });
     });
   });
 

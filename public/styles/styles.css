@@ -14,12 +14,7 @@ body {
   background-image: url(../img/map2.jpg);
   opacity: 1.5;
 }
-#generic-card {
-  background-color: whitesmoke;
-  opacity: .9;
-  padding: 5px;
-  height: 425px;
-}
+
 .card {
   opacity: .9;
 }
@@ -28,7 +23,7 @@ body {
   height: 100px;
 }
 
-#top5 {
+.upper-card {
   height: 425px;
   opacity: .9;
 }
