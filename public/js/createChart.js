@@ -1,8 +1,8 @@
 
 function createChart(labels, data, chartid) {
 
+  // document.getElementById(chartid).empty();
   var ctx = document.getElementById(chartid).getContext('2d');
-  // var myChart = new Chart(ctx, {
   var myChart = new Chart(ctx, {
     type: 'polarArea',
     data: {
@@ -29,15 +29,7 @@ function createChart(labels, data, chartid) {
         borderWidth: 1
       }]
     },
-    options: {
-      // scales: {
-      //   yAxes: [{
-      //     ticks: {
-      //       beginAtZero: true
-      //     }
-      //   }]
-      // }
-    }
+    options: { }
   });
-  
+  return myChart;
 }

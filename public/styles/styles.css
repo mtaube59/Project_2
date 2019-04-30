@@ -42,9 +42,6 @@ body {
 #event-list {
   overflow-y: auto;
 }
-#overflow2 {
-  overflow-y: auto;
-}
 
 .overflow {
   overflow-y: auto;

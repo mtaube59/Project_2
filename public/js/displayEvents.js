@@ -1,11 +1,11 @@
 let $eventsDisplay = $("#event-list-links");
 let $moreInfoDisplay;
+let chart1;
+let chart2;
 
 window.onload = function() {
   $moreInfoDisplay = $("#more-info-desc");
   $moreInfoTitle = $("#more-info-title");
-  // const $dispEventList = $("#disp-events-title");
-
   $.ajax({
     headers: {
       "Content-Type": "application/json"
@@ -36,13 +36,13 @@ window.onload = function() {
         url: "/api/charts"
         })
         .then(function (data) {
-          createChart(data.cLabels, data.cData, 'country-chart');
-          createChart(data.dLabels, data.dData, 'disaster-chart');
+          if (chart1) { chart1.destroy(); }
+          if (chart2) { chart2.destroy(); }
+          chart1 = createChart(data.cLabels, data.cData, 'country-chart');
+          chart2 = createChart(data.dLabels, data.dData, 'disaster-chart');
         })
     })
 }
-
-
 
 $eventsDisplay.on("click", ".listed-event", function(event) {
   $moreInfoDisplay.html($(this).attr("data-desc"));
