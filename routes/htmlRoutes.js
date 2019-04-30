@@ -42,20 +42,6 @@ module.exports = function(app) {
     });
   });
 
-    // Route that displays the description of the data for the clicked event
-    app.get("/more/:id", function(req, res) {
-      db.Disaster.findOne({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(data) {
-        res.render("index", {
-          events: currentResults.filter(result => result.dataValues.title),
-          description: data.description,
-          title: data.title
-        });
-      });
-    });
 
   // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
