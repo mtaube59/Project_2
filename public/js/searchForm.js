@@ -14,6 +14,10 @@ $("#search-disaster").click(function (event) {
   $("#disasterType").prop('selectedIndex', 0);
   $("#startingYear").prop('selectedIndex', 0);
   $("#endingYear").prop('selectedIndex', 0);
+
+// clear the more info area
+$("#more-info-title").html("Additional Information");
+$("#more-info-desc").html("");
   // Force yearEnd to be > yearStart
   if (yearStart > yearEnd) {
     [yearStart, yearEnd] = [yearEnd, yearStart];
@@ -135,8 +139,11 @@ $("#search-disaster").click(function (event) {
         var events = data.events;
         var htmlstr = "";
         for (let i = 0; i < events.length; i++) {
-          htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
-            </h3>`
+          htmlstr = htmlstr + `<h3 class="py-2 listed-event"
+           data-id='${events[i].id}'
+           data-desc='${events[i].description}'
+           data-title='${events[i].title}'
+           >${events[i].title}</h3>`
         }
         $("#event-list-links").html(htmlstr);
       })

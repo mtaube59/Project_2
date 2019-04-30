@@ -3,6 +3,8 @@ let $moreInfoDisplay;
 
 window.onload = function() {
   $moreInfoDisplay = $("#more-info-desc");
+  $moreInfoTitle = $("#more-info-title");
+
   $.ajax({
     headers: {
       "Content-Type": "application/json"
@@ -14,11 +16,14 @@ window.onload = function() {
       var events = data.events;
 
       var htmlstr ="";
-      for (let i = 0; i < events.length; i++)  {
-        htmlstr = htmlstr + `<p class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
-        </p>`
-      } 
 
+      for (let i = 0; i < events.length; i++) {
+        htmlstr = htmlstr + `<h3 class="py-2 listed-event"
+         data-id='${events[i].id}'
+         data-desc='${events[i].description}'
+         data-title='${events[i].title}'
+         >${events[i].title}</h3>`
+      }
       $eventsDisplay.html(htmlstr);
     })
     .then(function () {
@@ -40,4 +45,5 @@ const $dispEventList = $("#disp-events-title");
 
 $eventsDisplay.on("click", ".listed-event", function(event) {
   $moreInfoDisplay.html($(this).attr("data-desc"));
+  $moreInfoTitle.html($(this).attr("data-title"));
 })
