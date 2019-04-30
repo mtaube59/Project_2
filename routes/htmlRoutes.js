@@ -49,7 +49,7 @@ module.exports = function(app) {
       });
     });
 
-     // get filtered disasters 
+  // get filtered disasters 
   app.get("/disasters/:querystring", function(req, res) {
     let qStr = req.params.querystring;
     console.log(qStr);
@@ -62,7 +62,7 @@ module.exports = function(app) {
     } else if (keys.includes('country')){
       titleStr = searchFilter['country'];
     } else {
-        titleStr = `${searchFilter['type']}s`
+      titleStr = `${searchFilter['type']}s`
     }
     // var dateIndex = qStr.indexOf("between");
     // if (dateIndex > 0) {
@@ -73,13 +73,13 @@ module.exports = function(app) {
     //   titleStr = `(${yearStart} - ${yearEnd}) ${titleStr} `;
     // }
 
-
     db.Disaster.findAll({
       where: searchFilter
     }).then(function(dbSearches) {
       currentResults = dbSearches;
       res.render("index", {
-        events: currentResults.filter(result => result.dataValues.title),
+        // res.render("../views/partials/displayEvents", {
+          events: currentResults.filter(result => result.dataValues.title),
         description: "",
         titlebar: titleStr      
       });
