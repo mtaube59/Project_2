@@ -24,6 +24,8 @@ Technologies that were used in this app
 * CSS
 * ChartJS
 * Sequel Pro
+* NodeJS
+* Bootstrap
 
 API that was used in this app
 ReliefWeb
