@@ -10,6 +10,10 @@ $("#search-disaster").click(function (event) {
   let yearStart = parseInt($("#startingYear").val()) || 0;
   let yearEnd = parseInt($("#endingYear").val()) || 0;
 
+  $("#country").val('');
+  $("#disasterType").prop('selectedIndex', 0);
+  $("#startingYear").prop('selectedIndex', 0);
+  $("#endingYear").prop('selectedIndex', 0);
   // Force yearEnd to be > yearStart
   if (yearStart > yearEnd) {
     [yearStart, yearEnd] = [yearEnd, yearStart];
@@ -76,66 +80,66 @@ $("#search-disaster").click(function (event) {
   // must have a unique name ('year2013', 'year2014', etc) otherwise only the last year
   // in a range will be recorded.
   if (begin != 0 && end != 0) {
-      for (let i = begin; i <= end; i++) {
+    for (let i = begin; i <= end; i++) {
       searchCriteria[`year${i}`] = i;
     }
   }
-     
-      // Send the GET request to get the search data to searches table.
-      $.ajax({
-        headers: {
-          "Content-Type": "application/json"
-        },
-        type: "GET",
-        url: "/api/searches"
-      })
-      .then(function (dbSearches){
-        let existsId = null;
-        for (var key in searchCriteria) {
-          let topic = key;
-          // in order to be able to have multiple years in the object, the year keys are named
-          //  'year2013', 'year2014', etc.  If the key has the word 'year' in it, then the topic
-          // needs to just be set to 'year' in the seaches table.
-          if (key.includes('year')) topic = 'year';
-          
-          let name = searchCriteria[key].toString().trim();
-          existsId = recordExistsId(name, dbSearches);  // if record exists, returns the id
-          let urlStr = `/api/searches/${existsId}`;
-          let newSearchObj = {
-            topic: topic,
-            name: name,
-            count: 1
-          };
-          // This AJAX call will increment the counter if the record already exists (if it has an id)
-          // otherwise, a new record is added to the searches table
-          $.ajax({
-            headers: {
-              "Content-Type": "application/json"
-            },
-            type: "POST",
-            url: urlStr,
-            data: JSON.stringify(newSearchObj)
-          })
-          .then(function(data) {
-          })    
-        }  // end of loop that puts data into searches table
 
-        var search = JSON.stringify(filterEvent);
-        // location.href = `/disasters/${search}`;
+  // Send the GET request to get the search data to searches table.
+  $.ajax({
+    headers: {
+      "Content-Type": "application/json"
+    },
+    type: "GET",
+    url: "/api/searches"
+  })
+    .then(function (dbSearches) {
+      let existsId = null;
+      for (var key in searchCriteria) {
+        let topic = key;
+        // in order to be able to have multiple years in the object, the year keys are named
+        //  'year2013', 'year2014', etc.  If the key has the word 'year' in it, then the topic
+        // needs to just be set to 'year' in the seaches table.
+        if (key.includes('year')) topic = 'year';
 
-        // get the data from the disasters table
+        let name = searchCriteria[key].toString().trim();
+        existsId = recordExistsId(name, dbSearches);  // if record exists, returns the id
+        let urlStr = `/api/searches/${existsId}`;
+        let newSearchObj = {
+          topic: topic,
+          name: name,
+          count: 1
+        };
+        // This AJAX call will increment the counter if the record already exists (if it has an id)
+        // otherwise, a new record is added to the searches table
         $.ajax({
-          type: "GET",
-          url: `/disasters/${search}`
-        }).then(function (data) {
-          var events = data.events;
-          var htmlstr;
-          for (let i = 0; i < events.length; i++)  {
-            htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
-            </h3>`
-          } 
-          $("#event-list-links").html(htmlstr);
+          headers: {
+            "Content-Type": "application/json"
+          },
+          type: "POST",
+          url: urlStr,
+          data: JSON.stringify(newSearchObj)
         })
+          .then(function (data) {
+          })
+      }  // end of loop that puts data into searches table
+
+      var search = JSON.stringify(filterEvent);
+      // location.href = `/disasters/${search}`;
+
+      // get the data from the disasters table
+      $.ajax({
+        type: "GET",
+        url: `/disasters/${search}`
+      }).then(function (data) {
+        var events = data.events;
+        var htmlstr = "";
+        for (let i = 0; i < events.length; i++) {
+          htmlstr = htmlstr + `<h3 class="py-2 listed-event" data-id='${events[i].id}' data-desc='${events[i].description}'>${events[i].title}
+            </h3>`
+        }
+        $("#event-list-links").html(htmlstr);
+      })
         .then(function () {
           $.ajax({
             headers: {
@@ -143,34 +147,34 @@ $("#search-disaster").click(function (event) {
             },
             type: "GET",
             url: "/api/charts"
-            })
+          })
             .then(function (data) {
               createChart(data.cLabels, data.cData, 'country-chart');
               createChart(data.dLabels, data.dData, 'disaster-chart');
             })
         })
-      })
-    // })
-  });
-            
+    })
+  // })
+});
+
 // Additional Functions
 
-  /**
-   * Returns the id of the record if it exists
-   * @param {*} name : word to search for (country name, disaster type or year)
-   * @param {*} data : array from searches table in database
-   */
-  function recordExistsId(name, data) {
-    let existId = null;
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].name === name) {
-        existId = data[i].id;
-        return existId;
-      }
+/**
+ * Returns the id of the record if it exists
+ * @param {*} name : word to search for (country name, disaster type or year)
+ * @param {*} data : array from searches table in database
+ */
+function recordExistsId(name, data) {
+  let existId = null;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].name === name) {
+      existId = data[i].id;
+      return existId;
     }
-    return null;
   }
- 
+  return null;
+}
+
 function createChart(labels, data, chartid) {
 
   var ctx = document.getElementById(chartid).getContext('2d');
@@ -211,5 +215,5 @@ function createChart(labels, data, chartid) {
       // }
     }
   });
-  
+
 }
