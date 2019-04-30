@@ -7,7 +7,7 @@ https://prezi.com/view/MqX5hYGmXuXvDmk2TSHn/
 Overview
 Unearth Disaster is an online encylopedia for all the disasters that happened within the last ten years.
 
-Specifications
+## Specifications
 * Uses ReliefWeb to provide information of the disaster
 
 
@@ -21,7 +21,7 @@ Identify and prioritize essential user stories (limit this to 3 or fewer)?
 * Easy to use online encylopedia about disasters
 * Great resource for anyone learning about geography.
 
-Technologies that were used in this app
+## Technologies that were used in this app
 * Handlebars
 * Javascript
 * CSS
@@ -30,15 +30,15 @@ Technologies that were used in this app
 * NodeJS
 * Bootstrap
 
-API that was used in this app
+## API that was used in this app
 ReliefWeb
 
-Issues we came across
+## Issues we came across
 * Getting the graph to display was a challenge in and of itself.
 * It was difficult getting the styling to display on the app without ruining the functionality.
 * Creating a database was difficult and querying the database
 
 
-Future for this app
+## Future for this app
 * We would like to expand the years that we can search within this app.
 * We would like to add a donate feature that redirects the user to the organization providing relief for the disaster
