@@ -42,3 +42,6 @@ ReliefWeb
 ## Future for this app
 * We would like to expand the years that we can search within this app.
 * We would like to add a donate feature that redirects the user to the organization providing relief for the disaster
+
+### Link:
+https://unearth-disasters.herokuapp.com
